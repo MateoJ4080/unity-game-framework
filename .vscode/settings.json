@@ -56,5 +56,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "Unity Game Framework.sln"
+    "dotnet.defaultSolution": "unity-game-framework-base.sln"
 }
