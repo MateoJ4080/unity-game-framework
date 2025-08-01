@@ -376,7 +376,7 @@ namespace GameFramework.Core
         /// <summary>
         /// Checks if an action is currently pressed
         /// </summary>
-        public bool GetAction(string actionName)
+        public bool IsActionPressed(string actionName)
         {
             if (!_enableInput) return false;
 
@@ -387,7 +387,7 @@ namespace GameFramework.Core
         /// <summary>
         /// Checks if an action was triggered this frame
         /// </summary>
-        public bool GetActionTriggered(string actionName)
+        public bool WasActionTriggered(string actionName)
         {
             if (!_enableInput) return false;
 
@@ -398,7 +398,7 @@ namespace GameFramework.Core
         /// <summary>
         /// Checks if an action was released this frame
         /// </summary>
-        public bool GetActionReleased(string actionName)
+        public bool WasActionReleased(string actionName)
         {
             if (!_enableInput) return false;
 
@@ -581,9 +581,9 @@ namespace GameFramework.Core
         }
 
         // // Convenience wrapper methods to mimic the old Unity Input API, allowing compatibility with legacy (old) systems
-        public bool GetButtonDown(string actionName) => GetActionTriggered(actionName);
-        public bool GetButton(string actionName) => GetAction(actionName);
-        public bool GetButtonUp(string actionName) => GetActionReleased(actionName);
+        public bool GetButtonDown(string actionName) => WasActionTriggered(actionName);
+        public bool GetButton(string actionName) => IsActionPressed(actionName);
+        public bool GetButtonUp(string actionName) => WasActionReleased(actionName);
         public float GetAxis(string actionName) => ReadActionValue(actionName);
         public Vector2 GetMovementAxis() => MovementInput;
         public Vector2 GetLookAxis() => LookInput;
