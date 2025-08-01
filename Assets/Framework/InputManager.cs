@@ -114,6 +114,14 @@ namespace GameFramework.Core
                     Debug.LogError($"[InputManager] Action Map '{_gameplayActionMap}' not found!");
                     return;
                 }
+                if (_uiMap == null)
+                {
+                    Debug.LogError($"[InputManager] Action Map '{_uiActionMap}' not found!");
+                }
+                if (_menuMap == null)
+                {
+                    Debug.LogError($"[InputManager] Action Map '{_menuActionMap}' not found!");
+                }
 
                 // Cache main actions
                 CacheInputActions();
