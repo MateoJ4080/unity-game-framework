@@ -8,6 +8,9 @@ namespace GameFramework.Core
 {
     /// <summary>
     /// Modern input events using Unity's New Input System
+    /// 
+    /// Wrapper for input events. Unlike CallbackContext, which Unity guarantees reliable only during the callback,
+    /// this object safely stores data for later use and decouples input handling from Unity’s system.
     /// </summary>
     [Serializable]
     public class ModernInputEvent
@@ -289,7 +292,7 @@ namespace GameFramework.Core
             if (targetMap != null)
             {
                 _currentActionMap = targetMap;
-                if (_enableInput)
+                if (_enableInput) // Check if inputs are enabled before enabling the action map
                 {
                     _currentActionMap.Enable();
                 }
@@ -513,8 +516,12 @@ namespace GameFramework.Core
                 .OnMatchWaitForAnother(0.1f)
                 .OnComplete(operation =>
                 {
+                    // During rebinding, the action is disabled to prevent it from firing while being rebinded, so we need to re-enable it
                     action.Enable();
+                    // Frees internal resources from the rebinding operation (memory, references)
+                    // Necessary because PerformInteractiveRebinding() creates a temporary object that must be cleaned up when it is no longer used.
                     operation.Dispose();
+                    // Invoke the callback if provided
                     onComplete?.Invoke(actionName);
 
                     if (_debugMode)
